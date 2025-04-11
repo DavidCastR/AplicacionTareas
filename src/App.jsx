@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import TaskList from './components/TaskList.jsx';
 import './styles/main.scss';
 
