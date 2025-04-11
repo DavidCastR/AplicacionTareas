@@ -1,0 +1,108 @@
+@use "sass:color";
+@use "variables" as v;
+
+@mixin theme-colors($main-color, $light-color) {
+  --main-color: #{$main-color};
+  --dark-color: #{color.adjust($main-color, $lightness: -10%)};
+  --darker-color: #{color.adjust($main-color, $lightness: -20%)};
+  --light-color: #{$light-color};
+  --transparent-color: #{rgba($main-color, 0.1)};
+  --border-color: #{rgba($main-color, 0.3)};
+  --shadow-color: #{rgba($main-color, 0.2)};
+  
+  background-color: $light-color;
+  color: v.$text-color;
+  box-shadow: 0 4px 8px rgba($main-color, 0.15);
+  
+  h1 {
+    color: var(--dark-color);
+    border-bottom: 2px solid var(--transparent-color);
+  }
+  
+  h2 {
+    color: var(--dark-color);
+  }
+  
+  .task-form, .tasks-list {
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 5px var(--shadow-color);
+  }
+  
+  .task-item {
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin button-style($color) {
+  background-color: $color;
+  color: white;
+  border: none;
+  border-radius: v.$border-radius;
+  padding: v.$spacing-sm v.$spacing-md;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  
+  &:hover {
+    background-color: color.adjust($color, $lightness: -10%);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($color, 0.3);
+  }
+}
+
+@mixin button-style-with-active($color) {
+  @include button-style($color);
+  
+  &.active {
+    background-color: color.adjust($color, $lightness: -15%);
+    box-shadow: 0 0 10px rgba($color, 0.4);
+    transform: translateY(-2px);
+  }
+}
+
+@mixin card-container {
+  background-color: white;
+  border-radius: v.$border-radius;
+  box-shadow: v.$box-shadow;
+  padding: v.$spacing-lg;
+  margin-bottom: v.$spacing-lg;
+  transition: all 0.3s ease;
+}
+
+@mixin task-status-style($color) {
+  color: $color;
+  background-color: rgba($color, 0.1);
+  border: 1px solid $color;
+  padding: v.$spacing-xs v.$spacing-sm;
+  border-radius: v.$border-radius;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+@mixin responsive($breakpoint) {
+  @if $breakpoint == tablet {
+    @media (max-width: 768px) {
+      @content;
+    }
+  }
+  @if $breakpoint == mobile {
+    @media (max-width: 480px) {
+      @content;
+    }
+  }
+}
